@@ -97,29 +97,30 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
-        #Loops through i for the length of list given
-        for i in range(0, len(self._list)-1):
-            # Robot grabs first item in list
-            self.swap_item()
-            # Calls helper funct to compare items from left to right
-            self.sort_helper()
-            # Loops back towards the left to replace robot's item with none value item
-            while self.can_move_left():
-                self.move_left()
-                if self.compare_item() == None:
+        # Grabs first item and sets light on
+        self.swap_item()
+        self.set_light_on()
+        while self.light_is_on():
+            # Moves to the right to find the lwest item and swap with held item
+            while self.move_right():
+                if self.compare_item() == 1:
                     self.swap_item()
-                    break
-            self.move_right()
-        return self._list
-    def sort_helper(self):
-        # Checks if bot can move right, then does
-        if self.can_move_right():
-            self.move_right()
-            # If compare method returns 1(held item is bigger) call item swap method
-            if self.compare_item() == 1:
+            # Checks if no item at index exists
+            if self.compare_item() is None:
+                # swaps item and shuts light off
                 self.swap_item()
-            # Repeat until robot can no longer move right
-            self.sort_helper()
+                self.set_light_off()
+                break
+            else:
+                # Loops back to the left and replaces none value with held item
+                while self.move_left():
+                    if (self.compare_item() is None):
+                        self.swap_item()
+                        self.move_right()
+                        self.swap_item()
+                        break
+        return self._list
+        
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
