@@ -115,9 +115,10 @@ class SortingRobot:
         # Checks if bot can move right, then does
         if self.can_move_right():
             self.move_right()
-            # If compare method returns 1(held item is bigger)
+            # If compare method returns 1(held item is bigger) call item swap method
             if self.compare_item() == 1:
                 self.swap_item()
+            # Repeat until robot can no longer move right
             self.sort_helper()
 
 if __name__ == "__main__":
