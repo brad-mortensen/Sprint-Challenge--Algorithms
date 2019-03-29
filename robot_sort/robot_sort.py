@@ -97,9 +97,28 @@ class SortingRobot:
         Sort the robot's list.
         """
         # Fill this out
-        pass
+        #Loops through i for the length of list given
+        for i in range(0, len(self._list)-1):
+            # Robot grabs first item in list
+            self.swap_item()
+            # Calls helper funct to compare items from left to right
+            self.sort_helper()
+            # Loops back towards the left to replace robot's item with none value item
+            while self.can_move_left():
+                self.move_left()
+                if self.compare_item() == None:
+                    self.swap_item()
+                    break
+            self.move_right()
+        return self._list
     def sort_helper(self):
-        
+        # Checks if bot can move right, then does
+        if self.can_move_right():
+            self.move_right()
+            # If compare method returns 1(held item is bigger)
+            if self.compare_item() == 1:
+                self.swap_item()
+            self.sort_helper()
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
